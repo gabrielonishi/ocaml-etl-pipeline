@@ -1,22 +1,22 @@
 (lang dune 3.17)
 
-(name dune_project)
+(name etl)
 
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github gabrielonishi/ocaml-etl-pipeline))
 
-(authors "Author Name <author@example.com>")
+(authors "Gabriel Onishi <gabrielhso@al.insper.edu.br>")
 
-(maintainers "Maintainer Name <maintainer@example.com>")
+(maintainers "Gabriel Onishi <gabrielhso@al.insper.edu.br>")
 
 (license LICENSE)
 
 (documentation https://url/to/documentation)
 
 (package
- (name dune_project)
+ (name etl)
  (synopsis "A short synopsis")
  (description "A longer description")
  (depends ocaml)
