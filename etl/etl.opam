@@ -12,8 +12,8 @@ bug-reports: "https://github.com/gabrielonishi/ocaml-etl-pipeline/issues"
 depends: [
   "dune" {>= "3.17"}
   "ocaml"
-  "odoc" {with-doc}
   "csv"
+  "odoc" {with-doc}
 ]
 build: [
   ["dune" "subst"] {dev}
