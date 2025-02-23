@@ -1,2 +1,7 @@
+(include_subdirs unqualified)
+
 (library
- (name etl))
+ (name lib)
+  (modules read)
+   (libraries csv) 
+) 
