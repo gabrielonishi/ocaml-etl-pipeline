@@ -14,8 +14,6 @@ RUN apt-get update && apt-get install -y \
 
 USER vscode
 COPY postCreate.sh /home/vscode/postCreate.sh
-COPY postAttach.sh /home/vscode/postAttach.sh
 
 USER root
 RUN chmod +x /home/vscode/postCreate.sh
-RUN chmod +x /home/vscode/postAttach.sh
