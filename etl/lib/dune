@@ -2,6 +2,6 @@
 
 (library
  (name lib)
-  (modules read)
+  (modules read helpers)
    (libraries csv) 
 ) 

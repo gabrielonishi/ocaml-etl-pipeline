@@ -1,9 +1,7 @@
-(* Function to read and print CSV content *)
-let read_csv file =
-  let data = Csv.load file in
-  List.iter (fun row ->
-    List.iter (fun field ->
-      Printf.printf "%s " field
-    ) row;
-    print_newline ()
-  ) data
+let data_path = Filename.dirname (Sys.getcwd()) ^ "/data" ;;
+let input_path = data_path ^ "/input" ;;
+
+let read_csv filename = Csv.load filename
+
+let read_item = read_csv (input_path ^ "/order_item.csv")
+let read_order = read_csv (input_path ^ "/order.csv")
