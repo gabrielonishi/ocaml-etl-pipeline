@@ -16,4 +16,4 @@ USER vscode
 COPY postCreate.sh /home/vscode/postCreate.sh
 
 USER root
-RUN chmod +x /home/vscode/postCreate.sh
+RUN chmod +x /home/vscode/postCreate.sh .githooks/pre-commit
