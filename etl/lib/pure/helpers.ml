@@ -26,8 +26,7 @@ type order_item = {
   origin: string;
 } ;;
 
-let load_order_records (order_data : string list list) : order list =
-  let csv_data = List.tl order_data in
+let load_order_records (orders_data : string list list) : order list =
   List.fold_left (fun acc this_order ->
     match this_order with
     | [a; b; c; d; e] ->
@@ -39,10 +38,9 @@ let load_order_records (order_data : string list list) : order list =
           origin = e;
         } :: acc
     | _ -> failwith "Unexpected number of items in row"
-  ) [] csv_data ;;
+  ) [] orders_data ;;
 
-let load_item_records (item_data : string list list) : item list =
-  let csv_data = List.tl item_data in
+let load_item_records (items_data : string list list) : item list =
   List.fold_left (fun acc this_item ->
     match this_item with
     | [a; b; c; d; e] ->
@@ -54,9 +52,9 @@ let load_item_records (item_data : string list list) : item list =
           tax = float_of_string e;
         } :: acc
     | _ -> failwith "Unexpected number of items in row"
-  ) [] csv_data ;;
+  ) [] items_data ;;
 
-let product_map (this_order : order) (acc : order_item list) (this_item : item) : order_item list =
+let map_products (this_order : order) (acc : order_item list) (this_item : item) : order_item list =
   if this_item.order_id = this_order.id then
     {
       order_id = this_item.order_id;
@@ -71,8 +69,18 @@ let product_map (this_order : order) (acc : order_item list) (this_item : item) 
     } :: acc
   else acc
 
-let order_map (items: item list) (acc : order_item list) (this_order : order) : order_item list =
-  List.fold_left (product_map this_order) acc items ;;
+let map_orders (items: item list) (acc : order_item list) (this_order : order) : order_item list =
+  List.fold_left (map_products this_order) acc items ;;
 
 let join_order_item (orders : order list) (items : item list) : order_item list =
-  List.fold_left (order_map items) [] orders ;;
+  List.fold_left (map_orders items) [] orders ;;
+
+let load_order_items orders_csv items_csv header : order_item list =
+
+  let orders_data = if header then List.tl orders_csv else orders_csv in
+  let items_data = if header then List.tl items_csv else items_csv in
+
+  let orders = load_order_records orders_data in
+  let items = load_item_records items_data in
+  
+  join_order_item orders items ;;

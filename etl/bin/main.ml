@@ -1,16 +1,13 @@
 open Lib.Helpers
 
-let order_data = Lib.Read.read_order ;;
-let orders = load_order_records order_data ;;
+let orders_csv = Lib.Read.read_order ;;
+let items_csv = Lib.Read.read_item ;;
 
-let item_data = Lib.Read.read_item ;;
-let items = load_item_records item_data ;;
-
-let t = join_order_item orders items ;;
+let order_item_list = load_order_items orders_csv items_csv true ;;
 
 let () = List.iter (
   fun x -> Printf.printf "%d %d\n" x.order_id x.product_id
-  ) t ;;
+  ) order_item_list ;;
 
 (* let () = List.iter (
   fun x -> Printf.printf "%f\n" x.tax
