@@ -1,4 +1,5 @@
-open Lib.Helpers
+open Lib.Csv_parser
+open Lib.Schemas
 
 let orders_csv = Lib.Read.read_order ;;
 let items_csv = Lib.Read.read_item ;;
