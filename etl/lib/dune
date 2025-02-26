@@ -2,6 +2,5 @@
 
 (library
  (name lib)
-  (modules read csv_parser schemas)
-   (libraries csv) 
-) 
+ (modules read csv_parser schemas)
+ (libraries csv))

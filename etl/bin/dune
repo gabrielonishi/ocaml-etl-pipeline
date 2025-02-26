@@ -1,5 +1,4 @@
 (executable
  (public_name etl)
  (name main)
- (libraries lib)
-)
+ (libraries lib))

@@ -1,0 +1,7 @@
+# .ocamlformat
+# This configuration file follows best practices for formatting OCaml code.
+# Adjust the version below to match the version of ocamlformat you are using.
+version = 0.27.0
+
+# The 'conventional' profile adheres to widely accepted OCaml style guidelines.
+profile = conventional
