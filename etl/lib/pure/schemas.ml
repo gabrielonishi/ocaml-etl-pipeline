@@ -26,7 +26,7 @@ type order_item = {
   origin : string;
 }
 
-type output_item = {
+type order_summary = {
   order_id : int;
   total_amount : float;
   total_taxes : float;
