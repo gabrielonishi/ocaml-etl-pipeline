@@ -4,6 +4,7 @@ open Lib.Schemas
 let orders_csv = Lib.Read.read_order
 let items_csv = Lib.Read.read_item
 let order_item_list = load_order_items orders_csv items_csv true
+let () = Printf.printf "%s\n" Sys.argv.(1)
 
 let () =
   List.iter

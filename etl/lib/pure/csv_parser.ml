@@ -1,13 +1,21 @@
 open Schemas
 
+let safe_string_to_int (s : string) : int =
+  let s_int = int_of_string_opt s in
+  match s_int with Some s_int -> s_int | _ -> 0
+
+let safe_string_to_float (s : string) : float =
+  let s_float = float_of_string_opt s in
+  match s_float with Some s_float -> s_float | _ -> 0.
+
 let load_order_records (orders_data : string list list) : order list =
   List.fold_left
     (fun acc this_order ->
       match this_order with
       | [ a; b; c; d; e ] ->
           {
-            id = int_of_string a;
-            client_id = int_of_string b;
+            id = safe_string_to_int a;
+            client_id = safe_string_to_int b;
             order_date = c;
             status = d;
             origin = e;
@@ -22,11 +30,11 @@ let load_item_records (items_data : string list list) : item list =
       match this_item with
       | [ a; b; c; d; e ] ->
           {
-            order_id = int_of_string a;
-            product_id = int_of_string b;
-            quantity = int_of_string c;
-            price = float_of_string d;
-            tax = float_of_string e;
+            order_id = safe_string_to_int a;
+            product_id = safe_string_to_int b;
+            quantity = safe_string_to_int c;
+            price = safe_string_to_float d;
+            tax = safe_string_to_float e;
           }
           :: acc
       | _ -> failwith "Unexpected number of items in row")
