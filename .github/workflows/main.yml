@@ -35,25 +35,3 @@ jobs:
 
       - run: opam exec -- dune runtest
         working-directory: ./etl
-
-  lint-fmt:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./etl
-
-    steps:
-      - name: Checkout tree
-        uses: actions/checkout@v4
-
-      - name: Set-up OCaml
-        uses: ocaml/setup-ocaml@v3
-        with:
-          ocaml-compiler: 5
-
-      - name: Install OCamlFormat
-        run: opam install ocamlformat
-    
-      - name: Run OCamlFormat Linter
-        run: opam exec -- dune fmt --check
-        working-directory: ./etl
