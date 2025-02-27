@@ -38,6 +38,10 @@ jobs:
 
   lint-fmt:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./etl
+
     steps:
       - name: Checkout tree
         uses: actions/checkout@v4
