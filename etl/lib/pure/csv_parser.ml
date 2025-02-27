@@ -9,8 +9,8 @@ let safe_string_to_float (s : string) : float =
   match s_float with Some s_float -> s_float | _ -> 0.
 
 let load_order_records (orders_data : string list list) : order list =
-  List.fold_left
-    (fun acc this_order ->
+  List.map
+    (fun this_order ->
       match this_order with
       | [ a; b; c; d; e ] ->
           {
@@ -20,13 +20,12 @@ let load_order_records (orders_data : string list list) : order list =
             status = d;
             origin = e;
           }
-          :: acc
       | _ -> failwith "Unexpected number of items in row")
-    [] orders_data
+    orders_data
 
 let load_item_records (items_data : string list list) : item list =
-  List.fold_left
-    (fun acc this_item ->
+  List.map
+    (fun this_item ->
       match this_item with
       | [ a; b; c; d; e ] ->
           {
@@ -36,9 +35,8 @@ let load_item_records (items_data : string list list) : item list =
             price = safe_string_to_float d;
             tax = safe_string_to_float e;
           }
-          :: acc
       | _ -> failwith "Unexpected number of items in row")
-    [] items_data
+    items_data
 
 let map_products (this_order : order) (acc : order_item list) (this_item : item)
     : order_item list =

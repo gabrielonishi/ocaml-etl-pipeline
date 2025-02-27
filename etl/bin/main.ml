@@ -1,16 +1,13 @@
 open Lib.Csv_parser
 open Lib.Schemas
+open Lib.Process
 
 let orders_csv = Lib.Read.read_order
 let items_csv = Lib.Read.read_item
-let order_item_list = load_order_items orders_csv items_csv true
-let () = Printf.printf "%s\n" Sys.argv.(1)
+let order_items = load_order_items orders_csv items_csv true
+let output = calculate_totals order_items
 
-let () =
-  List.iter
-    (fun x -> Printf.printf "%d %d\n" x.order_id x.product_id)
-    order_item_list
+let print_output res =
+  Printf.printf "%d %f %f\n" res.order_id res.total_amount res.total_taxes ;;
 
-(* let () = List.iter (
-  fun x -> Printf.printf "%f\n" x.tax
-  ) items ;; *)
+let () = List.iter print_output output

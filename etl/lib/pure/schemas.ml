@@ -25,3 +25,9 @@ type order_item = {
   status : string;
   origin : string;
 }
+
+type output_item = {
+  order_id : int;
+  total_amount : float;
+  total_taxes : float;
+}
