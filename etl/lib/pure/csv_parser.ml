@@ -71,3 +71,13 @@ let load_order_items orders_csv items_csv header : order_item list =
   let items = load_item_records items_data in
 
   join_order_item orders items
+
+let convert_records_to_array (order_summary : order_summary list ) : string list list =
+  List.map(
+    fun (order: order_summary) ->
+      [
+        string_of_int order.order_id; 
+        string_of_float order.total_amount; 
+        string_of_float order.total_taxes
+      ]
+  ) order_summary 
