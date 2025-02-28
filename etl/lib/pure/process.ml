@@ -35,3 +35,11 @@ let group_by_ids (order_items : order_item list) : order_summary list =
       let compiled_order = process_order filtered_order in
       compiled_order :: acc)
   [] ids
+
+let build_output (order_items: order_item list) (status: string) (origin: string): order_summary list =
+  let filtered_order_items : order_item list = 
+    List.filter (
+      fun (o: order_item) -> o.status = status && o.origin = origin) 
+    order_items in
+
+  group_by_ids filtered_order_items ;;
