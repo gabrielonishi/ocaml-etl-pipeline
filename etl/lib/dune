@@ -2,5 +2,5 @@
 
 (library
  (name lib)
- (modules io csv_parser schemas process)
+ (modules io debug csv_parser schemas process)
  (libraries csv))
