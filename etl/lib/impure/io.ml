@@ -1,5 +1,6 @@
-(** [parse_arguments] parses the command-line arguments for order status and order type.
-    It expects two arguments and raises an exception if the arguments are invalid.
+(** [parse_arguments] parses the command-line arguments for order status and
+    order type. It expects two arguments and raises an exception if the
+    arguments are invalid.
 
     @return A tuple containing the parsed status and order type.
     @raise Failure if the arguments are not in the expected format. *)
@@ -30,11 +31,14 @@ let parse_arguments =
     in
     (status, order)
 
-(** [read_csv filepath] reads a CSV file from the specified [filepath] and validates its format.
-    It expects each row to have exactly five columns, otherwise it raises an exception.
+(** [read_csv filepath] reads a CSV file from the specified [filepath] and
+    validates its format. It expects each row to have exactly five columns,
+    otherwise it raises an exception.
 
     @param filepath The path to the CSV file to be read.
-    @return A list of string lists, where each inner list represents a row from the CSV.
+    @return
+      A list of string lists, where each inner list represents a row from the
+      CSV.
     @raise Failure if a row does not contain exactly five columns. *)
 let read_csv (filepath : string) : string list list =
   let data = Csv.load filepath in
@@ -50,7 +54,8 @@ let read_csv (filepath : string) : string list list =
 
   validated_data
 
-(** [write_csv filepath data] writes the provided [data] to a CSV file at the specified [filepath].
+(** [write_csv filepath data] writes the provided [data] to a CSV file at the
+    specified [filepath].
 
     @param filepath The path to the CSV file where the data will be written.
     @param data The list of string lists to be written as rows in the CSV file.

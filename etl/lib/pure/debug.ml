@@ -1,6 +1,7 @@
 open Schemas
 
-(** [debug_csv csv_data] prints the contents of a CSV data structure, where each row is a list of strings.
+(** [debug_csv csv_data] prints the contents of a CSV data structure, where each
+    row is a list of strings.
 
     @param csv_data A list of string lists representing the CSV data.
     @return Unit. Prints the CSV data to the standard output.
@@ -38,7 +39,8 @@ let debug_items (items : item list) : unit =
         i.price i.tax)
     items
 
-(** [debug_order_items order_items] prints the details of each order item in the provided list.
+(** [debug_order_items order_items] prints the details of each order item in the
+    provided list.
 
     @param order_items A list of [order_item] records to be printed.
     @return Unit. Prints the order item details to the standard output.
