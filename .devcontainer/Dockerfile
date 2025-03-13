@@ -8,12 +8,12 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     git \
     curl \
-    build-essential && \
-    opam init -y && \
-    opam install -y dune utop ocaml-lsp-server earlybird
+    build-essential \
+    libpcre3-dev \
+    libsqlite3-dev && \
+    opam init -y
+
+COPY postCreate.sh /home/vscode/postCreate.sh
+RUN chmod +x /home/vscode/postCreate.sh
 
 USER vscode
-COPY postCreate.sh /home/vscode/postCreate.sh
-
-USER root
-RUN chmod +x /home/vscode/postCreate.sh
