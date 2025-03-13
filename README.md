@@ -30,3 +30,9 @@ dune build @fmt
 dune promote
 ```
 
+### Resources
+
+ - [Official OCaml Documentation](https://ocaml.org/)
+ - [Real World OCaml](https://dev.realworldocaml.org/)
+ - [ChatGPT](https://chatgpt.com/)
+ - [DeepSeek](https://chat.deepseek.com/)
