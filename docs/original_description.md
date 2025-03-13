@@ -32,7 +32,7 @@ As tabelas `Clients` e `Products` não são fornecidas, pois não são relevante
 
 O modelo ER fica como a seguir:
 
-![Diagrama ER](../images/er_diagram.png)
+![Diagrama ER](images/er_diagram.png)
 
 ## Saída Esperada
 

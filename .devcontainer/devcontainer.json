@@ -9,8 +9,7 @@
         "editor.formatOnSave": true
       },
       "extensions": [
-        "ocamllabs.ocaml-platform",
-        "gitlens.gitlens"
+        "ocamllabs.ocaml-platform"
       ]
     }
   },

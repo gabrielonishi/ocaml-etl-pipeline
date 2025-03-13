@@ -4,29 +4,42 @@
 
 This project uses a DevContainer to isolate the development environment. Make sure you have Docker and the DevContainer VsCode extension installed. You can also build the image located on `./devcontainer/Dockerfile` separately.
 
-To access the container shell, execute
+### To access the container shell, execute
 
 ```bash
 docker exec -it CONTAINER_NAME /bin/bash
-sudo su vscode
 cd /workspaces/ocaml-etl-pipeline
 ```
 
-To run the project, execute
+### To run the project, execute
 
 ```bash
 #On the /etl folder
 dune build
 dune exec etl
 
-# Or with debugging on
+# Or with debugging with
 OCAMLRUNPARAM=b dune exec etl
 ```
 
-Running the formatter
+### To run the formatter
 
 ```bash
 dune build @fmt
 dune promote
+
+# Or, to do both
+dune build @fmt --autopromote
 ```
 
+### To use text completion (vscode)
+
+Click on `Extensions` on the side bar, then under `Commands` and `Select a Sandbox`, choose `5.2.0`.
+
+
+### Resources
+
+ - [Official OCaml Documentation](https://ocaml.org/)
+ - [Real World OCaml](https://dev.realworldocaml.org/)
+ - [ChatGPT](https://chatgpt.com/)
+ - [DeepSeek](https://chat.deepseek.com/)
