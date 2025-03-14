@@ -8,7 +8,7 @@ let parse_arguments =
   if Array.length Sys.argv != 3 then
     failwith
       "Execute com dune exec etl [pending | complete | cancelled] [physical | \
-       online | all]"
+       online ]"
   else
     let status =
       match Sys.argv.(1) with
@@ -18,7 +18,7 @@ let parse_arguments =
       | _ ->
           failwith
             "Execute com dune exec etl [pending | complete | cancelled] \
-             [physical | online | all]"
+             [physical | online ]"
     in
     let order =
       match Sys.argv.(2) with
@@ -27,7 +27,7 @@ let parse_arguments =
       | _ ->
           failwith
             "Execute com dune exec etl [pending | complete | cancelled] \
-             [physical | online | all]"
+             [physical | online ]"
     in
     (status, order)
 

@@ -13,7 +13,6 @@ depends: [
   "dune" {>= "3.17"}
   "ocaml"
   "csv"
-  "dotenv"
   "odoc" {with-doc}
 ]
 build: [
