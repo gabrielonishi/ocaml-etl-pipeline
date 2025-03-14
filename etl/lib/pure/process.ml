@@ -20,8 +20,8 @@ let rec int_is_in (el : int) (lst : int list) : bool =
     @return The updated accumulator list, possibly with the [order_id] added.
     @raise None. *)
 let order_item_in_acc (acc : int list) (order_item : order_item) =
-  let this_id = order_item.order_id in
-  if not (int_is_in this_id acc) then order_item.order_id :: acc else acc
+  if not (int_is_in order_item.order_id acc) then order_item.order_id :: acc
+  else acc
 
 (** [process_order order_items] processes a list of [order_item]s and computes
     the total amount and total taxes for the corresponding order.

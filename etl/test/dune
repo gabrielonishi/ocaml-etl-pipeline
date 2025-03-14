@@ -1,6 +1,6 @@
 (library
  (name test_etl)
- (modules csv_parser_test)
+ (modules csv_parser_test process_test)
  (libraries lib)
  (inline_tests)
  (preprocess
