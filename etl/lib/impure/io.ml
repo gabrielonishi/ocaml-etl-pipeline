@@ -4,14 +4,14 @@
 
     @return A tuple containing the parsed status and order type.
     @raise Failure if the arguments are not in the expected format. *)
-let parse_arguments =
-  if Array.length Sys.argv != 3 then
+let parse_arguments (args : string array) =
+  if Array.length args != 3 then
     failwith
       "Execute com dune exec etl [pending | complete | cancelled] [physical | \
        online ]"
   else
     let status =
-      match Sys.argv.(1) with
+      match args.(1) with
       | "pending" -> "Pending"
       | "complete" -> "Complete"
       | "cancelled" -> "Cancelled"
@@ -21,7 +21,7 @@ let parse_arguments =
              [physical | online ]"
     in
     let order =
-      match Sys.argv.(2) with
+      match args.(2) with
       | "physical" -> "P"
       | "online" -> "O"
       | _ ->
