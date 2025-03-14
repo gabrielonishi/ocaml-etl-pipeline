@@ -64,65 +64,20 @@ let load_item_records (items_data : string list list) : item list =
       | _ -> failwith "Unexpected number of items in row")
     items_data
 
-(** [map_products this_order acc this_item] maps an [item] to an [order_item] if
-    the item's [order_id] matches the order's [id], accumulating the result.
+(** [load_order_items orders_csv items_csv header] constructs a list of
+    [order_item] records by combining order and item data from CSV input.
 
-    @param this_order The order to match against.
-    @param acc The accumulator list of [order_item]s.
-    @param this_item The item to check and potentially map.
-    @return
-      An updated list of [order_item]s, with the new item added if it matches
-      the order. *)
-let map_products (this_order : order) (acc : order_item list) (this_item : item)
-    : order_item list =
-  if this_item.order_id = this_order.id then
-    {
-      order_id = this_item.order_id;
-      product_id = this_item.product_id;
-      quantity = this_item.quantity;
-      price = this_item.price;
-      tax = this_item.tax;
-      client_id = this_order.client_id;
-      order_date = this_order.order_date;
-      status = this_order.status;
-      origin = this_order.origin;
-    }
-    :: acc
-  else acc
-
-(** [map_orders items acc this_order] maps all items related to [this_order]
-    into [order_item] records and accumulates them.
-
-    @param items The list of items to be checked and mapped.
-    @param acc The accumulator list of [order_item]s.
-    @param this_order The order to match items against.
-    @return
-      An updated list of [order_item]s with items matching [this_order] added.
-*)
-let map_orders (items : item list) (acc : order_item list) (this_order : order)
-    : order_item list =
-  List.fold_left (map_products this_order) acc items
-
-(** [join_order_item orders items] joins orders with their corresponding items,
-    producing a list of [order_item] records.
-
-    @param orders The list of orders.
-    @param items The list of items to be matched with orders.
-    @return A list of [order_item]s representing the joined order and item data.
-*)
-let join_order_item (orders : order list) (items : item list) : order_item list
-    =
-  List.fold_left (map_orders items) [] orders
-
-(** [load_order_items orders_csv items_csv header] loads and processes order and
-    item data from CSV format, returning a list of [order_item] records.
-
-    @param orders_csv The raw order data as a list of string lists.
-    @param items_csv The raw item data as a list of string lists.
+    @param orders_csv
+      A list of string lists, where each inner list represents an order.
+    @param items_csv
+      A list of string lists, where each inner list represents an item.
     @param header
-      A boolean indicating whether the first row contains headers and should be
-      skipped.
-    @return A list of [order_item]s representing the processed data. *)
+      A boolean indicating whether the first row of the CSV data contains
+      headers.
+    @return
+      A list of [order_item] records, each combining information from an order
+      and its corresponding items.
+    @raise Failure if the CSV data does not conform to expected formats. *)
 let load_order_items orders_csv items_csv header : order_item list =
   let orders_data = if header then List.tl orders_csv else orders_csv in
   let items_data = if header then List.tl items_csv else items_csv in
@@ -130,7 +85,31 @@ let load_order_items orders_csv items_csv header : order_item list =
   let orders = load_order_records orders_data in
   let items = load_item_records items_data in
 
-  join_order_item orders items
+  let order_items : order_item list =
+    List.fold_left
+      (fun (order_items_acc : order_item list) (order : order) ->
+        let items_from_order =
+          List.filter (fun (item : item) -> item.order_id = order.id) items
+        in
+        List.fold_left
+          (fun (acc : order_item list) (item : item) ->
+            {
+              order_id = item.order_id;
+              product_id = item.product_id;
+              quantity = item.quantity;
+              price = item.price;
+              tax = item.tax;
+              client_id = order.client_id;
+              order_date = order.order_date;
+              status = order.status;
+              origin = order.origin;
+            }
+            :: acc)
+          order_items_acc items_from_order)
+      [] orders
+  in
+
+  order_items
 
 (** [convert_records_to_array order_summary] converts a list of [order_summary]
     records into a list of string lists, suitable for CSV output.

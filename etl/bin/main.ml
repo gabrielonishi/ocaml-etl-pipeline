@@ -1,6 +1,6 @@
 (*FILEPATH CONSTANTS*)
 let cwd = Filename.dirname (Sys.getcwd ())
-let order_csv_filepath = Filename.concat cwd "data/test/input/order_item.csv"
+let order_csv_filepath = Filename.concat cwd "data/test/input/order.csv"
 let item_csv_filepath = Filename.concat cwd "data/test/input/order_item.csv"
 let output_csv_filepath = Filename.concat cwd "data/test/output/output.csv"
 let status, origin = Lib.Io.parse_arguments
