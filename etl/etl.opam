@@ -13,8 +13,8 @@ depends: [
   "dune" {>= "3.17"}
   "ocaml"
   "csv"
-  "ppx_inline_test"
   "ppx_expect"
+  "ppx_inline_test"
   "odoc" {with-doc}
 ]
 build: [
