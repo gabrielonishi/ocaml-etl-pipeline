@@ -11,18 +11,6 @@ let rec int_is_in (el : int) (lst : int list) : bool =
   | [] -> false
   | h :: t -> if h = el then true else int_is_in el t
 
-(** [order_item_in_acc acc order_item] adds the [order_id] of the given
-    [order_item] to the accumulator list [acc] if it is not already present.
-
-    @param acc The accumulator list of order IDs.
-    @param order_item
-      The order item whose [order_id] is being checked and added.
-    @return The updated accumulator list, possibly with the [order_id] added.
-    @raise None. *)
-let order_item_in_acc (acc : int list) (order_item : order_item) =
-  let this_id = order_item.order_id in
-  if not (int_is_in this_id acc) then order_item.order_id :: acc else acc
-
 (** [process_order order_items] processes a list of [order_item]s and computes
     the total amount and total taxes for the corresponding order.
 
@@ -52,7 +40,14 @@ let process_order (order_items : order_item list) : order_summary =
     @return A list of [order_summary] records, one for each unique [order_id].
     @raise None. *)
 let group_by_ids (order_items : order_item list) : order_summary list =
-  let unrepeated_ids = List.fold_left order_item_in_acc [] order_items in
+  let unrepeated_ids =
+    List.fold_left
+      (fun (acc : int list) (order_item : order_item) ->
+        if not (int_is_in order_item.order_id acc) then
+          order_item.order_id :: acc
+        else acc)
+      [] order_items
+  in
   List.fold_left
     (fun (acc : order_summary list) (id : int) ->
       let filtered_order =

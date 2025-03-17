@@ -1,2 +1,4 @@
 (test
- (name test_etl))
+ (name test)
+ (modules test testables test_process test_csv_parser)
+ (libraries lib alcotest))

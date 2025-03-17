@@ -19,7 +19,7 @@
  (name etl)
  (synopsis "A short synopsis")
  (description "A longer description")
- (depends ocaml csv)
+ (depends ocaml csv alcotest bisect_ppx)
  (tags
   ("add topics" "to describe" your project)))
 

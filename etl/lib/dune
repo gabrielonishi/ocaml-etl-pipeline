@@ -3,4 +3,6 @@
 (library
  (name lib)
  (modules io debug csv_parser schemas process)
- (libraries csv))
+ (libraries csv)
+ (instrumentation
+  (backend bisect_ppx)))
