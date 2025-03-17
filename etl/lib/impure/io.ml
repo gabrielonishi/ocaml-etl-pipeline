@@ -1,3 +1,7 @@
+open Sqlite3
+open Schemas
+module D = Sqlite3.Data
+
 (** [parse_arguments] parses the command-line arguments for order status and
     order type. It expects two arguments and raises an exception if the
     arguments are invalid.
@@ -66,3 +70,48 @@ let write_csv (filepath : string) (data : string list list) : unit =
   let csv_out = Csv.to_channel oc in
   Csv.output_all csv_out data;
   close_out oc
+
+let insert_order (db : db) (order_summary : order_summary) =
+  let stmt =
+    prepare db
+      "INSERT INTO order_summary (order_id, total_amount, total_taxes) VALUES \
+       (?, ?, ?)"
+  in
+  let bind_value pos value =
+    match bind stmt pos value with
+    | Rc.OK -> ()
+    | rc -> failwith ("Bind failed: " ^ Rc.to_string rc)
+  in
+
+  bind_value 1 (D.INT (Int64.of_int order_summary.order_id));
+  bind_value 2 (D.FLOAT order_summary.total_amount);
+  bind_value 3 (D.FLOAT order_summary.total_taxes);
+
+  match step stmt with
+  | Rc.DONE -> finalize stmt |> ignore
+  | rc -> failwith ("Insert failed: " ^ Rc.to_string rc)
+
+let create_table (db : db) =
+  let sql =
+    "CREATE TABLE IF NOT EXISTS order_summary (\n\
+    \              order_id INTEGER PRIMARY KEY,\n\
+    \              total_amount REAL NOT NULL,\n\
+    \              total_taxes REAL NOT NULL);"
+  in
+
+  match exec db sql with
+  | Rc.OK -> ()
+  | rc -> failwith ("Table creation failed: " ^ Rc.to_string rc)
+
+let rec insert_orders (db : db) (order_summaries : order_summary list) =
+  match order_summaries with
+  | [] -> ()
+  | order_summary :: tl ->
+      insert_order db order_summary;
+      insert_orders db tl
+
+let write_db (filepath : string) (order_summary_list : order_summary list) :
+    unit =
+  let& db = db_open filepath in
+  create_table db;
+  insert_orders db order_summary_list
