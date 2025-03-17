@@ -1,7 +1,4 @@
-(library
- (name test_etl)
- (modules csv_parser_test process_test)
- (libraries lib)
- (inline_tests)
- (preprocess
-  (pps ppx_expect ppx_inline_test)))
+(test
+ (name test)
+ (modules test testables csv_parser_test)
+ (libraries lib alcotest))

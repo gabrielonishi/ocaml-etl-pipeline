@@ -79,10 +79,8 @@ let load_item_records (items_data : string list list) : item list =
     @raise Failure if the CSV data does not conform to expected formats. *)
 let load_order_items orders_csv items_csv : order_item list =
   (*Considers all input csvs comes with header*)
-  let header = true in
-
-  let orders_data = if header then List.tl orders_csv else orders_csv in
-  let items_data = if header then List.tl items_csv else items_csv in
+  let orders_data = List.tl orders_csv in
+  let items_data = List.tl items_csv in
 
   let orders = load_order_records orders_data in
   let items = load_item_records items_data in
@@ -111,7 +109,7 @@ let load_order_items orders_csv items_csv : order_item list =
       [] orders
   in
 
-  order_items
+  List.rev order_items
 
 (** [convert_records_to_array order_summary] converts a list of [order_summary]
     records into a list of string lists, suitable for CSV output.
@@ -120,8 +118,8 @@ let load_order_items orders_csv items_csv : order_item list =
     @return
       A list of string lists, where each inner list represents an order summary
       row. *)
-let convert_records_to_array (order_summary : order_summary list) :
-    string list list =
+let build_csv_output (order_summary : order_summary list) : string list list =
+  let header = [ "order_id"; "total_amount"; "total_taxes" ] in
   let value_rows =
     List.map
       (fun (order : order_summary) ->
@@ -132,4 +130,4 @@ let convert_records_to_array (order_summary : order_summary list) :
         ])
       order_summary
   in
-  [ "order_id"; "total_amount"; "total_taxes" ] :: value_rows
+  header :: value_rows
