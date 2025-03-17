@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>process.ml &mdash; Coverage report</title>
+    <meta name="description" content="100.00% coverage in lib/pure/process.ml">
+    <link rel="stylesheet" href="../../coverage.css"/>
+    <script src="../../highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a href="../../index.html">
+          <span class="dirname">lib/pure/</span>process.ml
+        </a>
+      </h1>
+      <h2>100.00%</h2>
+    </div>
+    <div id="navbar">
+    </div>
+    <div id="report">
+      <div id="lines-layer">
+        <pre>
+<a id="L1"></a><span > </span>
+<a id="L2"></a><span > </span>
+<a id="L3"></a><span > </span>
+<a id="L4"></a><span > </span>
+<a id="L5"></a><span > </span>
+<a id="L6"></a><span > </span>
+<a id="L7"></a><span > </span>
+<a id="L8"></a><span > </span>
+<a id="L9"></a><span > </span>
+<a id="L10"></a><span class="visited"> </span>
+<a id="L11"></a><span class="visited"> </span>
+<a id="L12"></a><span class="visited"> </span>
+<a id="L13"></a><span > </span>
+<a id="L14"></a><span > </span>
+<a id="L15"></a><span > </span>
+<a id="L16"></a><span > </span>
+<a id="L17"></a><span > </span>
+<a id="L18"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span > </span>
+<a id="L22"></a><span > </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span > </span>
+<a id="L25"></a><span class="visited"> </span>
+<a id="L26"></a><span > </span>
+<a id="L27"></a><span > </span>
+<a id="L28"></a><span > </span>
+<a id="L29"></a><span > </span>
+<a id="L30"></a><span > </span>
+<a id="L31"></a><span > </span>
+<a id="L32"></a><span > </span>
+<a id="L33"></a><span > </span>
+<a id="L34"></a><span > </span>
+<a id="L35"></a><span > </span>
+<a id="L36"></a><span > </span>
+<a id="L37"></a><span > </span>
+<a id="L38"></a><span > </span>
+<a id="L39"></a><span > </span>
+<a id="L40"></a><span > </span>
+<a id="L41"></a><span > </span>
+<a id="L42"></a><span > </span>
+<a id="L43"></a><span class="visited"> </span>
+<a id="L44"></a><span > </span>
+<a id="L45"></a><span > </span>
+<a id="L46"></a><span class="visited"> </span>
+<a id="L47"></a><span class="visited"> </span>
+<a id="L48"></a><span class="visited"> </span>
+<a id="L49"></a><span > </span>
+<a id="L50"></a><span > </span>
+<a id="L51"></a><span class="visited"> </span>
+<a id="L52"></a><span > </span>
+<a id="L53"></a><span class="visited"> </span>
+<a id="L54"></a><span class="visited"> </span>
+<a id="L55"></a><span > </span>
+<a id="L56"></a><span class="visited"> </span>
+<a id="L57"></a><span class="visited"> </span>
+<a id="L58"></a><span > </span>
+<a id="L59"></a><span > </span>
+<a id="L60"></a><span > </span>
+<a id="L61"></a><span > </span>
+<a id="L62"></a><span > </span>
+<a id="L63"></a><span > </span>
+<a id="L64"></a><span > </span>
+<a id="L65"></a><span > </span>
+<a id="L66"></a><span > </span>
+<a id="L67"></a><span > </span>
+<a id="L68"></a><span > </span>
+<a id="L69"></a><span > </span>
+<a id="L70"></a><span > </span>
+<a id="L71"></a><span > </span>
+<a id="L72"></a><span > </span>
+<a id="L73"></a><span > </span>
+<a id="L74"></a><span class="visited"> </span>
+<a id="L75"></a><span class="visited"> </span>
+<a id="L76"></a><span class="visited"> </span>
+<a id="L77"></a><span > </span>
+<a id="L78"></a><span > </span>
+<a id="L79"></a><span > </span>
+</pre>
+      </div>
+      <div id="text-layer">
+        <pre id="line-numbers">
+<a href="#L1"> 1</a>
+<a href="#L2"> 2</a>
+<a href="#L3"> 3</a>
+<a href="#L4"> 4</a>
+<a href="#L5"> 5</a>
+<a href="#L6"> 6</a>
+<a href="#L7"> 7</a>
+<a href="#L8"> 8</a>
+<a href="#L9"> 9</a>
+<a href="#L10">10</a>
+<a href="#L11">11</a>
+<a href="#L12">12</a>
+<a href="#L13">13</a>
+<a href="#L14">14</a>
+<a href="#L15">15</a>
+<a href="#L16">16</a>
+<a href="#L17">17</a>
+<a href="#L18">18</a>
+<a href="#L19">19</a>
+<a href="#L20">20</a>
+<a href="#L21">21</a>
+<a href="#L22">22</a>
+<a href="#L23">23</a>
+<a href="#L24">24</a>
+<a href="#L25">25</a>
+<a href="#L26">26</a>
+<a href="#L27">27</a>
+<a href="#L28">28</a>
+<a href="#L29">29</a>
+<a href="#L30">30</a>
+<a href="#L31">31</a>
+<a href="#L32">32</a>
+<a href="#L33">33</a>
+<a href="#L34">34</a>
+<a href="#L35">35</a>
+<a href="#L36">36</a>
+<a href="#L37">37</a>
+<a href="#L38">38</a>
+<a href="#L39">39</a>
+<a href="#L40">40</a>
+<a href="#L41">41</a>
+<a href="#L42">42</a>
+<a href="#L43">43</a>
+<a href="#L44">44</a>
+<a href="#L45">45</a>
+<a href="#L46">46</a>
+<a href="#L47">47</a>
+<a href="#L48">48</a>
+<a href="#L49">49</a>
+<a href="#L50">50</a>
+<a href="#L51">51</a>
+<a href="#L52">52</a>
+<a href="#L53">53</a>
+<a href="#L54">54</a>
+<a href="#L55">55</a>
+<a href="#L56">56</a>
+<a href="#L57">57</a>
+<a href="#L58">58</a>
+<a href="#L59">59</a>
+<a href="#L60">60</a>
+<a href="#L61">61</a>
+<a href="#L62">62</a>
+<a href="#L63">63</a>
+<a href="#L64">64</a>
+<a href="#L65">65</a>
+<a href="#L66">66</a>
+<a href="#L67">67</a>
+<a href="#L68">68</a>
+<a href="#L69">69</a>
+<a href="#L70">70</a>
+<a href="#L71">71</a>
+<a href="#L72">72</a>
+<a href="#L73">73</a>
+<a href="#L74">74</a>
+<a href="#L75">75</a>
+<a href="#L76">76</a>
+<a href="#L77">77</a>
+<a href="#L78">78</a>
+<a href="#L79">79</a>
+</pre>
+<pre><code class="ocaml">open Schemas
+
+(** [int_is_in el lst] checks if the integer [el] is present in the list [lst].
+
+    @param el The integer to search for in the list.
+    @param lst The list of integers to search through.
+    @return [true] if [el] is found in [lst], otherwise [false].
+    @raise None. *)
+let rec int_is_in (el : int) (lst : int list) : bool =
+  <span data-count="22">m</span>atch lst with
+  | <span data-count="10">[</span>] -&gt; false
+  | <span data-count="12">h</span> :: t -&gt; if h = el then <span data-count="5">t</span>rue else <span data-count="7">i</span>nt_is_in el t
+
+(** [process_order order_items] processes a list of [order_item]s and computes
+    the total amount and total taxes for the corresponding order.
+
+    @param order_items A list of [order_item] records to be processed.
+    @return
+      An [order_summary] record containing the total amount and total taxes for
+      the order.
+    @raise None. *)
+let process_order (order_items : order_item list) : order_summary =
+  <span data-count="11">L</span>ist.fold_left
+    (fun acc order_item -&gt;
+      <span data-count="15">l</span>et total_amount = order_item.price *. float_of_in<span data-count="15">t</span> order_item.quantity in
+      {
+        order_id = order_item.order_id;
+        total_amount = acc.total_amount +. total_amount;
+        total_taxes = acc.total_taxes +. (total_amount *. order_item.tax);
+      })
+    { order_id = 0; total_amount = 0.; total_taxes = 0. }
+    order_items
+
+(** [group_by_ids order_items] groups a list of [order_item]s by their
+    [order_id] and processes each group to compute a summary of total amounts
+    and total taxes.
+
+    @param order_items
+      A list of [order_item] records to be grouped and processed.
+    @return A list of [order_summary] records, one for each unique [order_id].
+    @raise None. *)
+let group_by_ids (order_items : order_item list) : order_summary list =
+  <span data-count="8">l</span>et unrepeated_ids =
+    List.fold_left
+      (fun (acc : int list) (order_item : order_item) -&gt;
+        <span data-count="12">i</span>f not (int_is_i<span data-count="12">n</span> order_item.order_id acc) then
+          <span data-count="8">o</span>rder_item.order_id :: acc
+        else <span data-count="4">a</span>cc)
+      [] order_items
+  in
+  <span data-count="8">L</span>ist.fold_left
+    (fun (acc : order_summary list) (id : int) -&gt;
+      <span data-count="8">l</span>et filtered_order =
+        List.filter (fun (o : order_item) -&gt; <span data-count="18">o</span>.order_id = id) order_items
+      in
+      <span data-count="8">l</span>et compiled_order = process_order filtered_order in
+      <span data-count="8">c</span>ompiled_order :: acc)
+    [] unrepeated_ids
+
+(** [build_output order_items status origin] filters the [order_item] list by
+    [status] and [origin], and then groups the filtered items by their
+    [order_id] to generate a summary of the order's totals.
+
+    @param order_items
+      A list of [order_item] records to be filtered and grouped.
+    @param status The status of the orders to filter by.
+    @param origin The origin of the orders to filter by.
+    @return
+      A list of [order_summary] records, each representing a unique order with
+      the specified [status] and [origin].
+    @raise None. *)
+let build_output (order_items : order_item list) (status : string)
+    (origin : string) : order_summary list =
+  <span data-count="4">l</span>et filtered_order_items : order_item list =
+    List.filte<span data-count="4">r</span>
+      (fun (o : order_item) -&gt; <span data-count="6">o</span>.status = status &amp;&amp; <span data-count="6">o</span>.origin = origin)
+      order_items
+  in
+  group_by_ids filtered_order_items
+</code></pre>
+      </div>
+    </div>
+    <script src="../../coverage.js"></script>
+  </body>
+</html>
