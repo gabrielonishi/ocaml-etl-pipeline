@@ -32,6 +32,16 @@ dune promote
 dune build @fmt --autopromote
 ```
 
+### To run tests
+```bash
+# Simple testing
+dune test
+
+# Or, to generate coverage report
+dune runtest --instrument-with bisect_ppx --force
+bisect-ppx-report html
+```
+
 ### To use text completion (vscode)
 
 Click on `Extensions` on the side bar, then under `Commands` and `Select a Sandbox`, choose `5.2.0`.
