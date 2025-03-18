@@ -1,5 +1,6 @@
 open Sqlite3
 open Schemas
+open Lwt.Syntax
 module D = Sqlite3.Data
 
 (** [parse_arguments] parses the command-line arguments for order status and
@@ -90,6 +91,19 @@ let insert_order (db : db) (order_summary : order_summary) =
   match step stmt with
   | Rc.DONE -> finalize stmt |> ignore
   | rc -> failwith ("Insert failed: " ^ Rc.to_string rc)
+
+let read_csv_from_url url : string list list =
+  let str_csv =
+    Lwt_main.run
+      (let* resp, body = Cohttp_lwt_unix.Client.get (Uri.of_string url) in
+       let* body_str = Cohttp_lwt.Body.to_string body in
+       match Cohttp.Response.status resp with
+       | `OK -> Lwt.return body_str
+       | _ -> Lwt.fail_with "HTTP request failed")
+  in
+
+  let channel = Csv.of_string ~has_header:true str_csv in
+  Csv.input_all channel
 
 let create_table (db : db) =
   let sql =

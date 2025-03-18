@@ -19,7 +19,7 @@
  (name etl)
  (synopsis "A short synopsis")
  (description "A longer description")
- (depends ocaml csv sqlite3 alcotest bisect_ppx)
+ (depends ocaml csv sqlite3 alcotest bisect_ppx lwt cohttp-lwt-unix lwt_ssl)
  (tags
   ("add topics" "to describe" your project)))
 
