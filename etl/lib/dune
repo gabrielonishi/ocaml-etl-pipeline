@@ -3,6 +3,6 @@
 (library
  (name lib)
  (modules io debug csv_parser schemas process)
- (libraries csv sqlite3)
+ (libraries csv sqlite3 lwt cohttp-lwt-unix)
  (instrumentation
   (backend bisect_ppx)))

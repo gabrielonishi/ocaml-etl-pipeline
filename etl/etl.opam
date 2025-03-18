@@ -16,6 +16,9 @@ depends: [
   "sqlite3"
   "alcotest"
   "bisect_ppx"
+  "lwt"
+  "cohttp-lwt-unix"
+  "lwt_ssl"
   "odoc" {with-doc}
 ]
 build: [

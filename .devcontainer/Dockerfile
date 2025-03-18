@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libpcre3-dev \
     libsqlite3-dev && \
+    libgmp-dev && \
     opam init -y
 
 COPY postCreate.sh /home/vscode/postCreate.sh
