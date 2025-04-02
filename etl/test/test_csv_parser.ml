@@ -191,11 +191,11 @@ let load_order_item_suite =
         [] );
   ]
 
-let test_build_csv_output (order_summary : order_summary list)
+let test_build_csv_output (order_total : order_total list)
     (expected_array : string list list) () =
   Alcotest.(check (list (list string)))
     "convert_records_to_array valid row" expected_array
-    (build_csv_output order_summary)
+    (build_csv_output order_total)
 
 let build_csv_output_suite =
   [

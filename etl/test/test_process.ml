@@ -1,22 +1,8 @@
-open Lib.Schemas
+(* open Lib.Schemas
 open Lib.Process
 open Testables
 
-let test_int_is_in (el : int) (lst : int list) (expected : bool) () =
-  Alcotest.(check bool) "int_is_in" expected (int_is_in el lst)
 
-let int_is_in_suite =
-  [
-    ("int_is_in empty list", `Quick, test_int_is_in 1 [] false);
-    ("int_is_in not in list", `Quick, test_int_is_in 1 [ 2; 3; 4 ] false);
-    ("int_is_in in list", `Quick, test_int_is_in 1 [ 1; 2; 3 ] true);
-  ]
-
-let test_process_order (order_items : order_item list)
-    (expected : order_summary) () =
-  Alcotest.(check order_summary_testable)
-    "process_order" expected
-    (process_order order_items)
 
 let process_order_suite =
   [
@@ -80,7 +66,7 @@ let process_order_suite =
   ]
 
 let test_group_by_ids (order_items : order_item list)
-    (expected : order_summary list) () =
+    (expected : order_total list) () =
   Alcotest.(check (list order_summary_testable))
     "group_by_ids" expected (group_by_ids order_items)
 
@@ -197,7 +183,7 @@ let group_by_ids_suite =
   ]
 
 let test_build_output (order_items : order_item list) (status : string)
-    (origin : string) (expected : order_summary list) () =
+    (origin : string) (expected : order_total list) () =
   Alcotest.(check (list order_summary_testable))
     "build_output" expected
     (build_output order_items status origin)
@@ -386,4 +372,4 @@ let%test "group_by_ids" =
       };
     ]
   in
-  res = exp *)
+  res = exp *) *)

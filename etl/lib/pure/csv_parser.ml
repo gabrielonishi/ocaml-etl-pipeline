@@ -111,23 +111,23 @@ let load_order_items orders_csv items_csv : order_item list =
 
   List.rev order_items
 
-(** [convert_records_to_array order_summary] converts a list of [order_summary]
+(** [convert_records_to_array order_total] converts a list of [order_total]
     records into a list of string lists, suitable for CSV output.
 
-    @param order_summary The list of [order_summary] records to convert.
+    @param order_total The list of [order_total] records to convert.
     @return
       A list of string lists, where each inner list represents an order summary
       row. *)
-let build_csv_output (order_summary : order_summary list) : string list list =
+let build_csv_output (order_total : order_total list) : string list list =
   let header = [ "order_id"; "total_amount"; "total_taxes" ] in
   let value_rows =
     List.map
-      (fun (order : order_summary) ->
+      (fun (order : order_total) ->
         [
           string_of_int order.order_id;
           string_of_float order.total_amount;
           string_of_float order.total_taxes;
         ])
-      order_summary
+      order_total
   in
   header :: value_rows

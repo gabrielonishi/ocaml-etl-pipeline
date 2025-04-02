@@ -56,9 +56,9 @@ let debug_order_items (order_items : order_item list) : unit =
         oi.status oi.origin)
     order_items
 
-let debug_order_summary_records (records : order_summary list) : unit =
+let debug_order_summary_records (records : order_total list) : unit =
   Printf.printf "order_id, total_amount, total_taxes\n";
   List.iter
-    (fun (r : order_summary) ->
+    (fun (r : order_total) ->
       Printf.printf "%d, %f, %f" r.order_id r.total_amount r.total_taxes)
     records

@@ -2,6 +2,7 @@ open Sqlite3
 open Schemas
 open Lwt.Syntax
 module D = Sqlite3.Data
+module IntMap = Map.Make (Int)
 
 (** [parse_arguments] parses the command-line arguments for order status and
     order type. It expects two arguments and raises an exception if the
@@ -72,10 +73,10 @@ let write_csv (filepath : string) (data : string list list) : unit =
   Csv.output_all csv_out data;
   close_out oc
 
-let insert_order (db : db) (order_summary : order_summary) =
+let insert_order (db : db) (order_total : order_total) =
   let stmt =
     prepare db
-      "INSERT INTO order_summary (order_id, total_amount, total_taxes) VALUES \
+      "INSERT INTO order_total (order_id, total_amount, total_taxes) VALUES \
        (?, ?, ?)"
   in
   let bind_value pos value =
@@ -84,9 +85,9 @@ let insert_order (db : db) (order_summary : order_summary) =
     | rc -> failwith ("Bind failed: " ^ Rc.to_string rc)
   in
 
-  bind_value 1 (D.INT (Int64.of_int order_summary.order_id));
-  bind_value 2 (D.FLOAT order_summary.total_amount);
-  bind_value 3 (D.FLOAT order_summary.total_taxes);
+  bind_value 1 (D.INT (Int64.of_int order_total.order_id));
+  bind_value 2 (D.FLOAT order_total.total_amount);
+  bind_value 3 (D.FLOAT order_total.total_taxes);
 
   match step stmt with
   | Rc.DONE -> finalize stmt |> ignore
@@ -107,7 +108,7 @@ let read_csv_from_url url : string list list =
 
 let create_table (db : db) =
   let sql =
-    "CREATE TABLE IF NOT EXISTS order_summary (\n\
+    "CREATE TABLE IF NOT EXISTS order_total (\n\
     \              order_id INTEGER PRIMARY KEY,\n\
     \              total_amount REAL NOT NULL,\n\
     \              total_taxes REAL NOT NULL);"
@@ -117,15 +118,13 @@ let create_table (db : db) =
   | Rc.OK -> ()
   | rc -> failwith ("Table creation failed: " ^ Rc.to_string rc)
 
-let rec insert_orders (db : db) (order_summaries : order_summary list) =
-  match order_summaries with
-  | [] -> ()
-  | order_summary :: tl ->
-      insert_order db order_summary;
-      insert_orders db tl
+let insert_orders (db : db) (order_summary : order_total IntMap.t) =
+  IntMap.iter
+    (fun (_key : int) (order_total : order_total) ->
+      insert_order db order_total)
+    order_summary
 
-let write_db (filepath : string) (order_summary_list : order_summary list) :
-    unit =
+let write_db (filepath : string) (order_summary : order_total IntMap.t) : unit =
   let& db = db_open filepath in
   create_table db;
-  insert_orders db order_summary_list
+  insert_orders db order_summary

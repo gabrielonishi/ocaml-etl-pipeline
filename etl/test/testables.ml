@@ -61,14 +61,14 @@ let order_item_testable =
 
 let order_summary_testable =
   let module M = struct
-    type t = order_summary
+    type t = order_total
 
     let pp fmt (os : t) =
       (* Pretty-printing for error messages *)
       Format.fprintf fmt "{ order_id=%d; total_amount=%f; total_taxes=%f }"
         os.order_id os.total_amount os.total_taxes
 
-    let equal (a : order_summary) (b : order_summary) =
+    let equal (a : order_total) (b : order_total) =
       (* Comparison logic *)
       a.order_id = b.order_id
       && a.total_amount = b.total_amount
