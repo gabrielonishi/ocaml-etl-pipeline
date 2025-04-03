@@ -1,6 +1,9 @@
 open Lib.Schemas
 module IntMap = Map.Make (Int)
 
+let lambda = 0.001
+let float_equal a b = Float.abs (a -. b) < lambda
+
 let order_testable =
   let pp fmt (o : order) =
     (* Pretty-printing for error messages *)
@@ -28,7 +31,9 @@ let item_testable =
     (* Comparison logic *)
     a.order_id = b.order_id
     && a.product_id = b.product_id
-    && a.quantity = b.quantity && a.price = b.price && a.tax = b.tax
+    && a.quantity = b.quantity
+    && float_equal a.price b.price
+    && float_equal a.tax b.tax
   in
 
   Alcotest.testable pp equal
@@ -47,8 +52,9 @@ let order_item_testable =
     (* Comparison logic *)
     a.order_id = b.order_id
     && a.product_id = b.product_id
-    && a.quantity = b.quantity && a.price = b.price && a.tax = b.tax
-    && a.client_id = b.client_id
+    && a.quantity = b.quantity
+    && float_equal a.price b.price
+    && float_equal a.tax b.tax && a.client_id = b.client_id
     && a.order_date = b.order_date
     && a.status = b.status && a.origin = b.origin
   in
@@ -94,40 +100,5 @@ let map_testable (value_testable : 'a Alcotest.testable) :
       (Fmt.list (Fmt.pair Fmt.int (Alcotest.pp value_testable)))
       bindings
   in
-  let eq m1 m2 =
-    let m1_in_m2_test =
-      try
-        IntMap.fold
-          (fun key1 value1 acc ->
-            if acc = false then false
-            else
-              acc
-              &&
-              match IntMap.find_opt key1 m2 with
-              | Some value2 ->
-                  if Alcotest.equal value_testable value1 value2 then true
-                  else false
-              | None -> false)
-          m1 true
-      with Not_found -> false
-    in
-
-    (* Only checks for key pairings, values were already tested*)
-    let m2_in_m1_test =
-      try
-        IntMap.fold
-          (fun key2 _value2 acc ->
-            if acc = false then false
-            else
-              acc
-              &&
-              match IntMap.find_opt key2 m1 with
-              | Some _value1 -> true
-              | None -> false)
-          m2 true
-      with Not_found -> false
-    in
-
-    m1_in_m2_test && m2_in_m1_test
-  in
+  let eq m1 m2 = IntMap.equal (Alcotest.equal value_testable) m1 m2 in
   Alcotest.testable pp eq
