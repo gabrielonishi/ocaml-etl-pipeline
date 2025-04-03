@@ -143,3 +143,27 @@ let group_by_order_id_suite =
       in
       test_group_by_order_id order_items expected );
   ]
+
+let test_build_output (order_items : order_item list)
+    (expected : order_total IntMap.t) (status : string) (origin : string) () =
+  let result = build_output order_items status origin in
+  Alcotest.(check (map_testable order_total_testable))
+    "build_output" expected result
+
+let build_output_suite =
+  [
+    ( "Build output",
+      `Quick,
+      let expected =
+        IntMap.of_list
+          [
+            ( 1,
+              {
+                order_id = 1;
+                total_amount = (12. *. 10.4) +. (1. *. 50.);
+                total_taxes = (12. *. 10.4 *. 0.2) +. (1. *. 50. *. 0.1);
+              } );
+          ]
+      in
+      test_build_output order_items expected "completed" "online" );
+  ]
