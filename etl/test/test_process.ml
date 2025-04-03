@@ -115,7 +115,7 @@ let order_items =
       tax = 0.1;
       client_id = 2;
       order_date = "2023-01-02";
-      status = "completed";
+      status = "pending";
       origin = "online";
     };
   ]
